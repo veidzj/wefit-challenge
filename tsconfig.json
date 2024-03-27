@@ -1,15 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "strict": true,
-    "strictPropertyInitialization": false,
-    "allowJs": true,
+    "baseUrl": "src",
+    "rootDirs": ["src", "tests"],
+    "outDir": "dist",
+    "module": "CommonJS",
+    "target": "ESNext",
     "esModuleInterop": true,
-
-    "emitDecoratorMetadata": true,
-
-    "experimentalDecorators": true
-  }
+    "strictNullChecks": true,
+    "skipLibCheck": true,
+    "sourceMap": true,
+    "paths": {
+      "@/tests/*": ["../tests/*"],
+      "@/*": ["*"]
+    }
+  },
+  "include": ["src", "tests"],
+  "exclude": []
 }
