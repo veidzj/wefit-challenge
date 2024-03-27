@@ -1,4 +1,5 @@
 import { type Controller, type HttpResponse, type Validation } from '@/presentation/protocols'
+import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
 
 export class AddNaturalPersonController implements Controller {
@@ -13,15 +14,9 @@ export class AddNaturalPersonController implements Controller {
       }
     } catch (error) {
       if (error instanceof ValidationError) {
-        return {
-          statusCode: 400,
-          body: error
-        }
+        return HttpHelper.badRequest(error)
       }
-      return {
-        statusCode: 500,
-        body: error
-      }
+      return HttpHelper.serverError(error as Error)
     }
   }
 }
