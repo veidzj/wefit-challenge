@@ -1,5 +1,6 @@
 import { ValidationSpy } from '@/tests/presentation/mocks'
 import { AddNaturalPersonController } from '@/presentation/controllers'
+import { ValidationError } from '@/validation/errors'
 
 interface Sut {
   sut: AddNaturalPersonController
@@ -20,6 +21,14 @@ describe('AddNaturalPersonController', () => {
     const { sut, validationSpy } = makeSut()
     await sut.handle({})
     expect(validationSpy.input).toEqual({})
+  })
+
+  test('Should return badRequest if Validation throws ValidationError', async() => {
+    const { sut, validationSpy } = makeSut()
+    const errorMessage = 'error'
+    jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => { throw new ValidationError(errorMessage) })
+    const httpResponse = await sut.handle({})
+    expect(httpResponse).toEqual({ statusCode: 400, body: new ValidationError(errorMessage) })
   })
 
   test('Should return serverError if Validation throws', async() => {
