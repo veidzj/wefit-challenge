@@ -3,11 +3,17 @@ import { faker } from '@faker-js/faker'
 import { CompareFieldsValidator } from '@/validation/validators'
 import { ValidationError } from '@/validation/errors'
 
+const makeSut = (): CompareFieldsValidator => {
+  return new CompareFieldsValidator(field, fieldToCompare)
+}
+
+const field: string = faker.word.words()
+const fieldToCompare: string = faker.word.words()
+
 describe('CompareFieldsValidator', () => {
   test('Should throw ValidationError if fields are different', () => {
-    const field: string = faker.word.words()
-    const fieldToCompare: string = faker.word.words()
-    const sut = new CompareFieldsValidator(field, fieldToCompare)
+    const sut = makeSut()
+
     expect(() => {
       sut.validate({
         [field]: faker.word.words(),
