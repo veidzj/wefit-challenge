@@ -15,10 +15,7 @@ export class AddNaturalPersonController implements Controller {
     try {
       this.validation.validate(request)
       await this.addNaturalPerson.add(request)
-      return {
-        statusCode: 0,
-        body: {}
-      }
+      return HttpHelper.ok({ message: 'Natural person successfully registered' })
     } catch (error) {
       if (error instanceof ValidationError) {
         return HttpHelper.badRequest(error)
