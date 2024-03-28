@@ -4,6 +4,7 @@ import {
   mockAddNaturalPersonRepositoryInput
 } from '@/tests/application/mocks'
 import { DbAddNaturalPerson } from '@/application/usecases'
+import { NaturalPersonAlreadyExistsError } from '@/domain/errors'
 
 interface Sut {
   sut: DbAddNaturalPerson
@@ -31,6 +32,15 @@ describe('DbAddNaturalPerson', () => {
       await sut.add(addNaturalPersonRepositoryInput)
 
       expect(checkNaturalPersonByCPFRepositorySpy.cpf).toBe(addNaturalPersonRepositoryInput.cpf)
+    })
+
+    test('Should throw NaturalPersonAlreadyExists if CheckNaturalPersonByCPFRepository returns true', async() => {
+      const { sut, checkNaturalPersonByCPFRepositorySpy } = makeSut()
+      checkNaturalPersonByCPFRepositorySpy.output = true
+
+      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+
+      await expect(promise).rejects.toThrow(new NaturalPersonAlreadyExistsError())
     })
   })
 
