@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import { CNPJValidatorSpy } from '@/tests/validation/mocks'
 import { CNPJValidation } from '@/validation/validators'
+import { ValidationError } from '@/validation/errors'
 
 interface Sut {
   sut: CNPJValidation
@@ -29,5 +30,14 @@ describe('CNPJValidation', () => {
     })
 
     expect(cnpjValidatorSpy.cnpj).toBe(cnpj)
+  })
+
+  test('Should throw ValidationError if CNPJValidator returns false', () => {
+    const { sut, cnpjValidatorSpy } = makeSut()
+    cnpjValidatorSpy.isCNPJValid = false
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.string.numeric(14) })
+    }).toThrow(new ValidationError(`${fieldName} must be a valid CNPJ`))
   })
 })
