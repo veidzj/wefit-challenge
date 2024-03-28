@@ -49,4 +49,12 @@ describe('PhoneValidation', () => {
       sut.validate({ [fieldName]: faker.phone.number() })
     }).toThrow()
   })
+
+  test('Should not throw on success', () => {
+    const { sut } = makeSut()
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.phone.number() })
+    }).not.toThrow()
+  })
 })
