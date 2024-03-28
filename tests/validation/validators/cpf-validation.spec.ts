@@ -40,4 +40,13 @@ describe('CPFValidation', () => {
       sut.validate({ [fieldName]: faker.string.numeric(11) })
     }).toThrow(new ValidationError(`${fieldName} must be a valid CPF`))
   })
+
+  test('Should throw if CPFValidator throws', () => {
+    const { sut, cpfValidatorSpy } = makeSut()
+    jest.spyOn(cpfValidatorSpy, 'isValid').mockImplementationOnce(() => { throw new Error() })
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.string.numeric(11) })
+    }).toThrow()
+  })
 })
