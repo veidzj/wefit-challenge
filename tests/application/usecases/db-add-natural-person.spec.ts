@@ -42,6 +42,15 @@ describe('DbAddNaturalPerson', () => {
 
       await expect(promise).rejects.toThrow(new NaturalPersonAlreadyExistsError())
     })
+
+    test('Should throw NaturalPersonAlreadyExists if CheckNaturalPersonByCPFRepository throws', async() => {
+      const { sut, checkNaturalPersonByCPFRepositorySpy } = makeSut()
+      jest.spyOn(checkNaturalPersonByCPFRepositorySpy, 'check').mockRejectedValueOnce(new Error())
+
+      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+
+      await expect(promise).rejects.toThrow()
+    })
   })
 
   describe('AddNaturalPersonRepository', () => {
