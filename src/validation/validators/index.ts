@@ -1,2 +1,2 @@
-export * from './compare-fields-validator'
-export * from './required-field-validator'
+export * from './compare-fields-validation'
+export * from './required-field-validation'

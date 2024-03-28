@@ -1,15 +1,15 @@
 import { faker } from '@faker-js/faker'
 
-import { RequiredFieldValidator } from '@/validation/validators'
+import { RequiredFieldValidation } from '@/validation/validators'
 import { ValidationError } from '@/validation/errors'
 
-const makeSut = (): RequiredFieldValidator => {
-  return new RequiredFieldValidator(fieldName)
+const makeSut = (): RequiredFieldValidation => {
+  return new RequiredFieldValidation(fieldName)
 }
 
 const fieldName: string = faker.word.words()
 
-describe('RequiredFieldValidator', () => {
+describe('RequiredFieldValidation', () => {
   test('Should throw ValidationError if field is not provided', () => {
     const sut = makeSut()
 

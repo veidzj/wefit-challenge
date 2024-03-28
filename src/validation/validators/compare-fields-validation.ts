@@ -1,7 +1,7 @@
 import { ValidationError } from '@/validation/errors'
 import { type Validation } from '@/presentation/protocols'
 
-export class CompareFieldsValidator implements Validation {
+export class CompareFieldsValidation implements Validation {
   constructor(
     private readonly fieldName: string,
     private readonly fieldToCompareName: string
