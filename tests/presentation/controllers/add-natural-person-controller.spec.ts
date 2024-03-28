@@ -5,6 +5,7 @@ import { AddNaturalPersonSpy } from '@/tests/domain/mocks'
 import { AddNaturalPersonController } from '@/presentation/controllers'
 import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
+import { NaturalPersonAlreadyExistsError } from '@/domain/errors'
 
 interface Sut {
   sut: AddNaturalPersonController
@@ -82,9 +83,18 @@ describe('AddNaturalPersonController', () => {
       expect(addNaturalPersonSpy.input).toEqual(request)
     })
 
+    test('Should return conflict if AddNaturalPerson throws NaturalPersonAlreadyExistsError', async() => {
+      const { sut, addNaturalPersonSpy } = makeSut()
+      jest.spyOn(addNaturalPersonSpy, 'add').mockRejectedValueOnce(new NaturalPersonAlreadyExistsError())
+
+      const httpResponse = await sut.handle(mockRequest())
+
+      expect(httpResponse).toEqual(HttpHelper.conflict(new NaturalPersonAlreadyExistsError()))
+    })
+
     test('Should return serverError if AddNaturalPerson throws', async() => {
       const { sut, addNaturalPersonSpy } = makeSut()
-      jest.spyOn(addNaturalPersonSpy, 'add').mockImplementationOnce(() => { throw new Error() })
+      jest.spyOn(addNaturalPersonSpy, 'add').mockRejectedValueOnce(new Error())
 
       const httpResponse = await sut.handle(mockRequest())
 
