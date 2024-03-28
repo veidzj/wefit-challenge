@@ -2,6 +2,7 @@ import { faker } from '@faker-js/faker'
 
 import { CPFValidatorSpy } from '@/tests/validation/mocks'
 import { CPFValidation } from '@/validation/validators'
+import { ValidationError } from '@/validation/errors'
 
 interface Sut {
   sut: CPFValidation
@@ -29,5 +30,14 @@ describe('CPFValidation', () => {
     })
 
     expect(cpfValidatorSpy.cpf).toBe(cpf)
+  })
+
+  test('Should throw ValidationError if CPFValidator returns false', () => {
+    const { sut, cpfValidatorSpy } = makeSut()
+    cpfValidatorSpy.isCPFValid = false
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.string.numeric(11) })
+    }).toThrow(new ValidationError(`${fieldName} must be a valid CPF`))
   })
 })
