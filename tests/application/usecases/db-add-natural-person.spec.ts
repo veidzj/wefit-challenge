@@ -25,5 +25,14 @@ describe('DbAddNaturalPerson', () => {
 
       expect(addNaturalPersonRepositorySpy.input).toEqual(addNaturalPersonRepositoryInput)
     })
+
+    test('Should throw if AddNaturalPersonRepository throws', async() => {
+      const { sut, addNaturalPersonRepositorySpy } = makeSut()
+      jest.spyOn(addNaturalPersonRepositorySpy, 'add').mockRejectedValueOnce(new Error())
+
+      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+
+      await expect(promise).rejects.toThrow()
+    })
   })
 })
