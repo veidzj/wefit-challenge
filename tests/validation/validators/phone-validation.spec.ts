@@ -1,7 +1,8 @@
 import { faker } from '@faker-js/faker'
 
-import { PhoneValidation } from '@/validation/validators'
 import { PhoneValidatorSpy } from '@/tests/validation/mocks'
+import { PhoneValidation } from '@/validation/validators'
+import { ValidationError } from '@/validation/errors'
 
 interface Sut {
   sut: PhoneValidation
@@ -29,5 +30,14 @@ describe('PhoneValidation', () => {
     })
 
     expect(phoneValidatorSpy.phone).toBe(phone)
+  })
+
+  test('Should throw ValidationError if PhoneValidator returns false', () => {
+    const { sut, phoneValidatorSpy } = makeSut()
+    phoneValidatorSpy.isPhoneValid = false
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.phone.number() })
+    }).toThrow(new ValidationError(`${fieldName} must be a valid phone number`))
   })
 })
