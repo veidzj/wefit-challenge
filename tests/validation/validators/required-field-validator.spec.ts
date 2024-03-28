@@ -15,4 +15,14 @@ describe('RequiredFieldValidator', () => {
       })
     }).toThrow(new ValidationError(`${fieldName} is required`))
   })
+
+  test('Should not throw on success', () => {
+    const sut = new RequiredFieldValidator(fieldName)
+
+    expect(() => {
+      sut.validate({
+        [fieldName]: faker.word.words()
+      })
+    }).not.toThrow()
+  })
 })
