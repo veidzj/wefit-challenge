@@ -1,3 +1,5 @@
+import { faker } from '@faker-js/faker'
+
 import { ValidationSpy } from '@/tests/presentation/mocks'
 import { AddNaturalPersonController } from '@/presentation/controllers'
 import { HttpHelper } from '@/presentation/helpers'
@@ -26,7 +28,7 @@ describe('AddNaturalPersonController', () => {
 
   test('Should return badRequest if Validation throws ValidationError', async() => {
     const { sut, validationSpy } = makeSut()
-    const errorMessage = 'error'
+    const errorMessage = faker.word.words()
     jest.spyOn(validationSpy, 'validate').mockImplementationOnce(() => { throw new ValidationError(errorMessage) })
     const httpResponse = await sut.handle({})
     expect(httpResponse).toEqual(HttpHelper.badRequest(new ValidationError(errorMessage)))
