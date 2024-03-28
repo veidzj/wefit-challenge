@@ -49,4 +49,12 @@ describe('CNPJValidation', () => {
       sut.validate({ [fieldName]: faker.string.numeric(14) })
     }).toThrow()
   })
+
+  test('Should not throw on success', () => {
+    const { sut } = makeSut()
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.string.numeric(14) })
+    }).not.toThrow()
+  })
 })
