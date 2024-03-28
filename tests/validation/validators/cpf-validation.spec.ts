@@ -49,4 +49,12 @@ describe('CPFValidation', () => {
       sut.validate({ [fieldName]: faker.string.numeric(11) })
     }).toThrow()
   })
+
+  test('Should not throw on success', () => {
+    const { sut } = makeSut()
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.string.numeric(11) })
+    }).not.toThrow()
+  })
 })
