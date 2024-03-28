@@ -9,6 +9,13 @@ export class HttpHelper {
     }
   }
 
+  public static conflict(data: object): HttpResponse {
+    return {
+      statusCode: 409,
+      body: data
+    }
+  }
+
   public static serverError(error: Error): HttpResponse {
     return {
       statusCode: 500,

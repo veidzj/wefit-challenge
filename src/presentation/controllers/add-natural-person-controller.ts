@@ -3,6 +3,7 @@ import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
 import { type Address } from '@/domain/models'
 import { type AddNaturalPerson } from '@/domain/usecases'
+import { NaturalPersonAlreadyExistsError } from '@/domain/errors'
 
 export class AddNaturalPersonController implements Controller {
   constructor(
@@ -21,6 +22,9 @@ export class AddNaturalPersonController implements Controller {
     } catch (error) {
       if (error instanceof ValidationError) {
         return HttpHelper.badRequest(error)
+      }
+      if (error instanceof NaturalPersonAlreadyExistsError) {
+        return HttpHelper.conflict(error)
       }
       return HttpHelper.serverError(error as Error)
     }
