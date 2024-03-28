@@ -40,4 +40,13 @@ describe('CNPJValidation', () => {
       sut.validate({ [fieldName]: faker.string.numeric(14) })
     }).toThrow(new ValidationError(`${fieldName} must be a valid CNPJ`))
   })
+
+  test('Should throw if CNPJValidator throws', () => {
+    const { sut, cnpjValidatorSpy } = makeSut()
+    jest.spyOn(cnpjValidatorSpy, 'isValid').mockImplementationOnce(() => { throw new Error() })
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.string.numeric(14) })
+    }).toThrow()
+  })
 })
