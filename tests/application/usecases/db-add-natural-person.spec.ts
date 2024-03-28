@@ -34,5 +34,13 @@ describe('DbAddNaturalPerson', () => {
 
       await expect(promise).rejects.toThrow()
     })
+
+    test('Should not throw on success', async() => {
+      const { sut } = makeSut()
+
+      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+
+      await expect(promise).resolves.not.toThrow()
+    })
   })
 })
