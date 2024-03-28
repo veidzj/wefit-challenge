@@ -21,4 +21,16 @@ describe('CompareFieldsValidator', () => {
       })
     }).toThrow(new ValidationError(`${field} needs to be equal to ${fieldToCompare}`))
   })
+
+  test('Should not throw on success', () => {
+    const sut = makeSut()
+    const fieldValue = faker.word.words()
+
+    expect(() => {
+      sut.validate({
+        [field]: fieldValue,
+        [fieldToCompare]: fieldValue
+      })
+    }).not.toThrow()
+  })
 })
