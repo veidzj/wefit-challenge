@@ -1,21 +1,39 @@
-import { AddNaturalPersonRepositorySpy, mockAddNaturalPersonRepositoryInput } from '@/tests/application/mocks'
+import {
+  CheckNaturalPersonByCPFRepositorySpy,
+  AddNaturalPersonRepositorySpy,
+  mockAddNaturalPersonRepositoryInput
+} from '@/tests/application/mocks'
 import { DbAddNaturalPerson } from '@/application/usecases'
 
 interface Sut {
   sut: DbAddNaturalPerson
+  checkNaturalPersonByCPFRepositorySpy: CheckNaturalPersonByCPFRepositorySpy
   addNaturalPersonRepositorySpy: AddNaturalPersonRepositorySpy
 }
 
 const makeSut = (): Sut => {
+  const checkNaturalPersonByCPFRepositorySpy = new CheckNaturalPersonByCPFRepositorySpy()
   const addNaturalPersonRepositorySpy = new AddNaturalPersonRepositorySpy()
-  const sut = new DbAddNaturalPerson(addNaturalPersonRepositorySpy)
+  const sut = new DbAddNaturalPerson(checkNaturalPersonByCPFRepositorySpy, addNaturalPersonRepositorySpy)
   return {
     sut,
+    checkNaturalPersonByCPFRepositorySpy,
     addNaturalPersonRepositorySpy
   }
 }
 
 describe('DbAddNaturalPerson', () => {
+  describe('CheckNaturalPersonByCPFRepository', () => {
+    test('Should call CheckNaturalPersonByCPFRepository with correct cpf', async() => {
+      const { sut, checkNaturalPersonByCPFRepositorySpy } = makeSut()
+      const addNaturalPersonRepositoryInput = mockAddNaturalPersonRepositoryInput()
+
+      await sut.add(addNaturalPersonRepositoryInput)
+
+      expect(checkNaturalPersonByCPFRepositorySpy.cpf).toBe(addNaturalPersonRepositoryInput.cpf)
+    })
+  })
+
   describe('AddNaturalPersonRepository', () => {
     test('Should call AddNaturalPersonRepository with correct values', async() => {
       const { sut, addNaturalPersonRepositorySpy } = makeSut()
