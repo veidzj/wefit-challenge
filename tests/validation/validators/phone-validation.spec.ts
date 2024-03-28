@@ -40,4 +40,13 @@ describe('PhoneValidation', () => {
       sut.validate({ [fieldName]: faker.phone.number() })
     }).toThrow(new ValidationError(`${fieldName} must be a valid phone number`))
   })
+
+  test('Should throw if PhoneValidator throws', () => {
+    const { sut, phoneValidatorSpy } = makeSut()
+    jest.spyOn(phoneValidatorSpy, 'isValid').mockImplementationOnce(() => { throw new Error() })
+
+    expect(() => {
+      sut.validate({ [fieldName]: faker.phone.number() })
+    }).toThrow()
+  })
 })
