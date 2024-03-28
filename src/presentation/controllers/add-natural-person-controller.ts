@@ -2,13 +2,18 @@ import { type Controller, type HttpResponse, type Validation } from '@/presentat
 import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
 import { type Address } from '@/domain/models'
+import { type AddNaturalPerson } from '@/domain/usecases'
 
 export class AddNaturalPersonController implements Controller {
-  constructor(private readonly validation: Validation) {}
+  constructor(
+    private readonly validation: Validation,
+    private readonly addNaturalPerson: AddNaturalPerson
+  ) {}
 
   public async handle(request: AddNaturalPersonController.Request): Promise<HttpResponse> {
     try {
       this.validation.validate(request)
+      await this.addNaturalPerson.add(request)
       return {
         statusCode: 0,
         body: {}
