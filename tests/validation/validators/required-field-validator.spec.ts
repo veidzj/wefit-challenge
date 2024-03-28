@@ -3,11 +3,15 @@ import { faker } from '@faker-js/faker'
 import { RequiredFieldValidator } from '@/validation/validators'
 import { ValidationError } from '@/validation/errors'
 
+const makeSut = (): RequiredFieldValidator => {
+  return new RequiredFieldValidator(fieldName)
+}
+
 const fieldName: string = faker.word.words()
 
 describe('RequiredFieldValidator', () => {
   test('Should throw ValidationError if field is not provided', () => {
-    const sut = new RequiredFieldValidator(fieldName)
+    const sut = makeSut()
 
     expect(() => {
       sut.validate({
@@ -17,7 +21,7 @@ describe('RequiredFieldValidator', () => {
   })
 
   test('Should not throw on success', () => {
-    const sut = new RequiredFieldValidator(fieldName)
+    const sut = makeSut()
 
     expect(() => {
       sut.validate({
