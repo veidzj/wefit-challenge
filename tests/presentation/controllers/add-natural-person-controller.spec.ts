@@ -81,5 +81,14 @@ describe('AddNaturalPersonController', () => {
 
       expect(addNaturalPersonSpy.input).toEqual(request)
     })
+
+    test('Should return serverError if AddNaturalPerson throws', async() => {
+      const { sut, addNaturalPersonSpy } = makeSut()
+      jest.spyOn(addNaturalPersonSpy, 'add').mockImplementationOnce(() => { throw new Error() })
+
+      const httpResponse = await sut.handle(mockRequest())
+
+      expect(httpResponse).toEqual(HttpHelper.serverError(new Error()))
+    })
   })
 })
