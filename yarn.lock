@@ -6008,6 +6008,11 @@ validate-npm-package-name@^5.0.0:
   dependencies:
     builtins "^5.0.0"
 
+validation-br@^1.4.5:
+  version "1.4.5"
+  resolved "https://registry.yarnpkg.com/validation-br/-/validation-br-1.4.5.tgz#0ca93fb245a2e3913cd344d70c79cc41c07e7806"
+  integrity sha512-d1YKYhQLrnHp3wc4GpDgP1yLGKDsELrrOIQBPyfr8eEfS0ub1/ZTf+pf7X3lUvGYh6+lbYkJ0wsZX4/3lUiOOg==
+
 validator@^13.11.0:
   version "13.11.0"
   resolved "https://registry.yarnpkg.com/validator/-/validator-13.11.0.tgz#23ab3fd59290c61248364eabf4067f04955fbb1b"
