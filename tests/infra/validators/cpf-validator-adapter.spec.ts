@@ -35,4 +35,13 @@ describe('CPFValidatorAdapter', () => {
 
     expect(isValid).toBe(false)
   })
+
+  test('Should throw if isCPF throws', () => {
+    const sut = makeSut()
+    jest.spyOn(validator, 'isCPF').mockImplementationOnce(() => { throw new Error() })
+
+    expect(() => {
+      sut.isValid(faker.string.numeric(11))
+    }).toThrow()
+  })
 })
