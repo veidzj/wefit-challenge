@@ -16,6 +16,14 @@ describe('CheckNaturalPersonByCPFMySQLRepository', () => {
     await clearTable('natural_person')
   })
 
+  test('Should return false if there is no natural person with provided cpf', async() => {
+    const sut = new CheckNaturalPersonByCPFMySQLRepository()
+
+    const result = await sut.check(mockAddNaturalPersonRepositoryInput().cpf)
+
+    expect(result).toBe(false)
+  })
+
   test('Should return true on success', async() => {
     const mySQLHelper = MySQLHelper.getInstance()
     const connection = mySQLHelper.getConnection()
