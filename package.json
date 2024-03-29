@@ -8,7 +8,8 @@
     "test:unit": "npm test -- --watch -c jest-unit.config.ts",
     "test:integration": "npm test -- --watch -c jest-integration.config.ts",
     "test:staged": "npm test -- --findRelatedTests",
-    "test:ci": "npm test -- --coverage",
+    "test:coverage": "npm test -- --coverage",
+    "test:ci": "npm test -- --coverage --testPathIgnorePatterns ['<rootDir>/tests/infra']",
     "test:changed": "npm test -- --changedSince=origin/main",
     "check": "ncu --interactive --format group",
     "prepare": "husky"
