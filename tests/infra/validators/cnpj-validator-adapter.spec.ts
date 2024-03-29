@@ -35,4 +35,13 @@ describe('CNPJValidatorAdapter', () => {
 
     expect(isValid).toBe(false)
   })
+
+  test('Should throw if isCNPJ throws', () => {
+    const sut = makeSut()
+    jest.spyOn(validator, 'isCNPJ').mockImplementationOnce(() => { throw new Error() })
+
+    expect(() => {
+      sut.isValid(faker.string.numeric(14))
+    }).toThrow()
+  })
 })
