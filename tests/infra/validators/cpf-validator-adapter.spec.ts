@@ -26,4 +26,13 @@ describe('CPFValidatorAdapter', () => {
 
     expect(isValid).toBe(true)
   })
+
+  test('Should return false if isCPF returns false', () => {
+    const sut = makeSut()
+    jest.spyOn(validator, 'isCPF').mockReturnValueOnce(false)
+
+    const isValid = sut.isValid(faker.string.numeric(11))
+
+    expect(isValid).toBe(false)
+  })
 })
