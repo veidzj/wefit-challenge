@@ -13,10 +13,9 @@ export class AddNaturalPersonRepositorySpy implements AddNaturalPersonRepository
 export const mockAddNaturalPersonRepositoryInput = (): AddNaturalPersonRepository.Input => ({
   cpf: faker.string.numeric(11),
   name: faker.person.fullName(),
-  cellPhone: faker.phone.number(),
-  phone: faker.phone.number(),
+  cellPhone: faker.helpers.fromRegExp(/([0-9]{2}) [0-9]{5}-[0-9]{4}/),
+  phone: faker.helpers.fromRegExp(/([0-9]{2}) [0-9]{4}-[0-9]{4}/),
   email: faker.internet.email(),
-  emailConfirmation: faker.internet.email(),
   address: {
     cep: faker.location.zipCode(),
     street: faker.location.street(),
