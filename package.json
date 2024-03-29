@@ -1,6 +1,7 @@
 {
   "name": "wefit-challenge",
   "version": "1.0.0",
+  "author": "João Victor Veidz",
   "license": "MIT",
   "scripts": {
     "test": "jest --passWithNoTests --noStackTrace --runInBand --no-cache",
