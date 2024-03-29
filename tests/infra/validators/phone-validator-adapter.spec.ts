@@ -40,4 +40,13 @@ describe('PhoneValidatorAdapter', () => {
 
     expect(isValid).toBe(false)
   })
+
+  test('Should throw if isMobilePhone throws', () => {
+    const sut = makeSut()
+    jest.spyOn(validator, 'isMobilePhone').mockImplementationOnce(() => { throw new Error() })
+
+    expect(() => {
+      sut.isValid(faker.phone.number())
+    }).toThrow()
+  })
 })
