@@ -23,4 +23,12 @@ describe('PhoneValidatorAdapter', () => {
 
     expect(isMobilePhoneSpy).toHaveBeenCalledWith(phone, 'pt-BR')
   })
+
+  test('Should return true if isMobilePhone returns true', () => {
+    const sut = makeSut()
+
+    const isValid = sut.isValid(faker.phone.number())
+
+    expect(isValid).toBe(true)
+  })
 })
