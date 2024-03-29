@@ -28,4 +28,12 @@ describe('ValidationComposite', () => {
       sut.validate({ name: faker.word.words() })
     }).toThrow(new ValidationError(errorMessage))
   })
+
+  test('Should not throw on success', () => {
+    const { sut } = makeSut()
+
+    expect(() => {
+      sut.validate({ name: faker.word.words() })
+    }).not.toThrow()
+  })
 })
