@@ -24,7 +24,7 @@ describe('CheckNaturalPersonByCPFMySQLRepository', () => {
     expect(result).toBe(false)
   })
 
-  test('Should return true on success', async() => {
+  test('Should return true if there is a natural person with provided cpf', async() => {
     const mySQLHelper = MySQLHelper.getInstance()
     const connection = mySQLHelper.getConnection()
     const addNaturalPersonRepositoryInput = mockAddNaturalPersonRepositoryInput()
