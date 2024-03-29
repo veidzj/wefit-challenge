@@ -11,7 +11,6 @@ export namespace AddNaturalPerson {
     cellPhone: string
     phone: string
     email: string
-    emailConfirmation: string
     address: Address
   }
 }

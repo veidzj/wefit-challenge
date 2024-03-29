@@ -11,7 +11,6 @@ export namespace AddNaturalPersonRepository {
     cellPhone: string
     phone: string
     email: string
-    emailConfirmation: string
     address: Address
   }
 }
