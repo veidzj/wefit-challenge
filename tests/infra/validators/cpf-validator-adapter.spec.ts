@@ -3,12 +3,6 @@ import { faker } from '@faker-js/faker'
 
 import { CPFValidatorAdapter } from '@/infra/validators'
 
-jest.mock('validator', () => ({
-  isCPF(): boolean {
-    return true
-  }
-}))
-
 const makeSut = (): CPFValidatorAdapter => {
   return new CPFValidatorAdapter()
 }
@@ -22,5 +16,14 @@ describe('CPFValidatorAdapter', () => {
     sut.isValid(cpf)
 
     expect(isCPFSpy).toHaveBeenCalledWith(cpf)
+  })
+
+  test('Should return true if isCPF returns true', () => {
+    const sut = makeSut()
+    jest.spyOn(validator, 'isCPF').mockReturnValueOnce(true)
+
+    const isValid = sut.isValid(faker.string.numeric(11))
+
+    expect(isValid).toBe(true)
   })
 })
