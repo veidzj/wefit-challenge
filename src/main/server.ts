@@ -6,10 +6,10 @@ import { MySQLHelper } from '@/infra/db/mysql/helpers'
 const mySQLHelper = MySQLHelper.getInstance()
 
 const config = {
-  host: 'localhost',
+  host: env.mySQLDbHost,
   user: 'root',
-  password: 'root',
-  database: 'test_db'
+  password: env.mySQLDbPassword,
+  database: env.mySQLDbName
 }
 
 mySQLHelper.connect(config)
