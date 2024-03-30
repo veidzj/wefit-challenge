@@ -90,5 +90,14 @@ describe('AddLegalPersonController', () => {
 
       expect(httpResponse).toEqual(HttpHelper.conflict(new LegalPersonAlreadyExistsError()))
     })
+
+    test('Should return serverError if AddLegalPerson throws', async() => {
+      const { sut, addLegalPersonSpy } = makeSut()
+      jest.spyOn(addLegalPersonSpy, 'add').mockRejectedValueOnce(new Error())
+
+      const httpResponse = await sut.handle(mockRequest())
+
+      expect(httpResponse).toEqual(HttpHelper.serverError(new Error()))
+    })
   })
 })
