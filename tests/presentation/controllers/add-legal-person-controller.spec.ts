@@ -1,6 +1,7 @@
 import { faker } from '@faker-js/faker'
 
 import { ValidationSpy } from '@/tests/presentation/mocks'
+import { AddLegalPersonSpy } from '@/tests/domain/mocks'
 import { AddLegalPersonController } from '@/presentation/controllers'
 import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
@@ -8,14 +9,17 @@ import { ValidationError } from '@/validation/errors'
 interface Sut {
   sut: AddLegalPersonController
   validationSpy: ValidationSpy
+  addLegalPersonSpy: AddLegalPersonSpy
 }
 
 const makeSut = (): Sut => {
   const validationSpy = new ValidationSpy()
-  const sut = new AddLegalPersonController(validationSpy)
+  const addLegalPersonSpy = new AddLegalPersonSpy()
+  const sut = new AddLegalPersonController(validationSpy, addLegalPersonSpy)
   return {
     sut,
-    validationSpy
+    validationSpy,
+    addLegalPersonSpy
   }
 }
 
@@ -64,6 +68,17 @@ describe('AddLegalPersonController', () => {
       const httpResponse = await sut.handle(mockRequest())
 
       expect(httpResponse).toEqual(HttpHelper.serverError(new Error()))
+    })
+  })
+
+  describe('AddLegalPerson', () => {
+    test('Should call AddLegalPerson with correct values', async() => {
+      const { sut, addLegalPersonSpy } = makeSut()
+      const request = mockRequest()
+
+      await sut.handle(request)
+
+      expect(addLegalPersonSpy.input).toEqual(request)
     })
   })
 })
