@@ -31,15 +31,13 @@ const mockRequest = (): AddNaturalPersonController.Request => ({
   phone: faker.phone.number(),
   email: faker.internet.email(),
   emailConfirmation: faker.internet.email(),
-  address: {
-    cep: faker.location.zipCode(),
-    street: faker.location.street(),
-    number: faker.number.int(1000),
-    complement: faker.location.secondaryAddress(),
-    city: faker.location.city(),
-    neighborhood: faker.location.secondaryAddress(),
-    state: faker.location.state()
-  }
+  cep: faker.location.zipCode(),
+  street: faker.location.street(),
+  number: faker.number.int(1000),
+  complement: faker.location.secondaryAddress(),
+  city: faker.location.city(),
+  neighborhood: faker.location.secondaryAddress(),
+  state: faker.location.state()
 })
 
 describe('AddNaturalPersonController', () => {

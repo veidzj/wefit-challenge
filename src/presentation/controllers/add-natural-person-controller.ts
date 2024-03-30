@@ -1,7 +1,6 @@
 import { type Controller, type HttpResponse, type Validation } from '@/presentation/protocols'
 import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
-import { type Address } from '@/domain/models'
 import { type AddNaturalPerson } from '@/domain/usecases'
 import { NaturalPersonAlreadyExistsError } from '@/domain/errors'
 
@@ -36,6 +35,12 @@ export namespace AddNaturalPersonController {
     phone: string
     email: string
     emailConfirmation: string
-    address: Address
+    cep: string
+    street: string
+    number: number
+    complement: string
+    city: string
+    neighborhood: string
+    state: string
   }
 }

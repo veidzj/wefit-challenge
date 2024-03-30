@@ -1,0 +1,14 @@
+FROM node:20
+
+WORKDIR /usr/src/wefit-challenge
+
+COPY package*.json ./
+
+RUN yarn install
+
+COPY . .
+
+EXPOSE 5000
+EXPOSE 9222
+
+CMD ["yarn", "run", "debug"]
