@@ -5,6 +5,7 @@ import { AddLegalPersonSpy } from '@/tests/domain/mocks'
 import { AddLegalPersonController } from '@/presentation/controllers'
 import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
+import { LegalPersonAlreadyExistsError } from '@/domain/errors'
 
 interface Sut {
   sut: AddLegalPersonController
@@ -79,6 +80,15 @@ describe('AddLegalPersonController', () => {
       await sut.handle(request)
 
       expect(addLegalPersonSpy.input).toEqual(request)
+    })
+
+    test('Should return conflict if AddLegalPerson throws LegalPersonAlreadyExistsError', async() => {
+      const { sut, addLegalPersonSpy } = makeSut()
+      jest.spyOn(addLegalPersonSpy, 'add').mockRejectedValueOnce(new LegalPersonAlreadyExistsError())
+
+      const httpResponse = await sut.handle(mockRequest())
+
+      expect(httpResponse).toEqual(HttpHelper.conflict(new LegalPersonAlreadyExistsError()))
     })
   })
 })
