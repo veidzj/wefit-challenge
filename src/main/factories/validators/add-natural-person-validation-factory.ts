@@ -6,7 +6,8 @@ import {
   CompareFieldsValidation,
   CPFValidation,
   PhoneValidation,
-  EmailValidation
+  EmailValidation,
+  CepValidation
 } from '@/validation/validators'
 
 export class AddNaturalPersonValidationFactory {
@@ -31,6 +32,7 @@ export class AddNaturalPersonValidationFactory {
     validations.push(new PhoneValidation('cellPhone', new PhoneValidatorAdapter()))
     validations.push(new PhoneValidation('phone', new PhoneValidatorAdapter()))
     validations.push(new EmailValidation('email', new EmailValidatorAdapter()))
+    validations.push(new CepValidation('cep'))
     return new ValidationComposite(validations)
   }
 }
