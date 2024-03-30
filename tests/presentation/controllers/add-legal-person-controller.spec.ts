@@ -3,6 +3,20 @@ import { faker } from '@faker-js/faker'
 import { ValidationSpy } from '@/tests/presentation/mocks'
 import { AddLegalPersonController } from '@/presentation/controllers'
 
+interface Sut {
+  sut: AddLegalPersonController
+  validationSpy: ValidationSpy
+}
+
+const makeSut = (): Sut => {
+  const validationSpy = new ValidationSpy()
+  const sut = new AddLegalPersonController(validationSpy)
+  return {
+    sut,
+    validationSpy
+  }
+}
+
 const mockRequest = (): AddLegalPersonController.Request => ({
   cnpj: faker.string.numeric(14),
   responsibleCpf: faker.string.numeric(11),
@@ -23,8 +37,7 @@ const mockRequest = (): AddLegalPersonController.Request => ({
 describe('AddLegalPersonController', () => {
   describe('Validation', () => {
     test('Should call Validation with correct values', async() => {
-      const validationSpy = new ValidationSpy()
-      const sut = new AddLegalPersonController(validationSpy)
+      const { sut, validationSpy } = makeSut()
       const request = mockRequest()
 
       await sut.handle(request)
