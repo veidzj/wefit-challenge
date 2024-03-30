@@ -1,7 +1,12 @@
+import { CPFValidatorAdapter, PhoneValidatorAdapter, EmailValidatorAdapter } from '@/infra/validators'
 import { type Validation } from '@/presentation/protocols'
 import {
   ValidationComposite,
-  RequiredFieldValidation
+  RequiredFieldValidation,
+  CompareFieldsValidation,
+  CPFValidation,
+  PhoneValidation,
+  EmailValidation
 } from '@/validation/validators'
 
 export class AddNaturalPersonValidationFactory {
@@ -20,6 +25,12 @@ export class AddNaturalPersonValidationFactory {
     validations.push(new RequiredFieldValidation('city'))
     validations.push(new RequiredFieldValidation('neighborhood'))
     validations.push(new RequiredFieldValidation('state'))
+
+    validations.push(new CompareFieldsValidation('email', 'emailConfirmation'))
+    validations.push(new CPFValidation('cpf', new CPFValidatorAdapter()))
+    validations.push(new PhoneValidation('cellPhone', new PhoneValidatorAdapter()))
+    validations.push(new PhoneValidation('phone', new PhoneValidatorAdapter()))
+    validations.push(new EmailValidation('email', new EmailValidatorAdapter()))
     return new ValidationComposite(validations)
   }
 }
