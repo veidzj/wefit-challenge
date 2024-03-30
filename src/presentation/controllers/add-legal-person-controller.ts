@@ -2,6 +2,7 @@ import { type Controller, type HttpResponse, type Validation } from '@/presentat
 import { HttpHelper } from '@/presentation/helpers'
 import { ValidationError } from '@/validation/errors'
 import { type AddLegalPerson } from '@/domain/usecases'
+import { LegalPersonAlreadyExistsError } from '@/domain/errors'
 
 export class AddLegalPersonController implements Controller {
   constructor(
@@ -17,6 +18,9 @@ export class AddLegalPersonController implements Controller {
     } catch (error) {
       if (error instanceof ValidationError) {
         return HttpHelper.badRequest(error)
+      }
+      if (error instanceof LegalPersonAlreadyExistsError) {
+        return HttpHelper.conflict(error)
       }
       return HttpHelper.serverError(error as Error)
     }
