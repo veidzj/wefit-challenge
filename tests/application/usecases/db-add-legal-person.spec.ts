@@ -36,5 +36,14 @@ describe('DbAddLegalPerson', () => {
 
       await expect(promise).rejects.toThrow(new LegalPersonAlreadyExistsError())
     })
+
+    test('Should throw if CheckLegalPersonByCNPJRepository throws', async() => {
+      const { sut, checkLegalPersonByCNPJRepositorySpy } = makeSut()
+      jest.spyOn(checkLegalPersonByCNPJRepositorySpy, 'check').mockRejectedValueOnce(new Error())
+
+      const promise = sut.add(mockAddLegalPersonInput())
+
+      await expect(promise).rejects.toThrow()
+    })
   })
 })
