@@ -6,7 +6,6 @@ export class CepValidation implements Validation {
 
   public validate(input: object): void {
     const cpf: string = input[this.fieldName]
-    console.log(cpf)
     if (!/^\d{5}-\d{3}$/.test(cpf)) {
       throw new ValidationError(`${this.fieldName} must be a valid CEP`)
     }
