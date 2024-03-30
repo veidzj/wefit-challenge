@@ -1,8 +1,5 @@
-import {
-  CheckNaturalPersonByCPFRepositorySpy,
-  AddNaturalPersonRepositorySpy,
-  mockAddNaturalPersonRepositoryInput
-} from '@/tests/application/mocks'
+import { CheckNaturalPersonByCPFRepositorySpy, AddNaturalPersonRepositorySpy } from '@/tests/application/mocks'
+import { mockAddNaturalPersonInput } from '@/tests/domain/mocks'
 import { DbAddNaturalPerson } from '@/application/usecases'
 import { NaturalPersonAlreadyExistsError } from '@/domain/errors'
 
@@ -27,7 +24,7 @@ describe('DbAddNaturalPerson', () => {
   describe('CheckNaturalPersonByCPFRepository', () => {
     test('Should call CheckNaturalPersonByCPFRepository with correct cpf', async() => {
       const { sut, checkNaturalPersonByCPFRepositorySpy } = makeSut()
-      const addNaturalPersonRepositoryInput = mockAddNaturalPersonRepositoryInput()
+      const addNaturalPersonRepositoryInput = mockAddNaturalPersonInput()
 
       await sut.add(addNaturalPersonRepositoryInput)
 
@@ -38,7 +35,7 @@ describe('DbAddNaturalPerson', () => {
       const { sut, checkNaturalPersonByCPFRepositorySpy } = makeSut()
       checkNaturalPersonByCPFRepositorySpy.output = true
 
-      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+      const promise = sut.add(mockAddNaturalPersonInput())
 
       await expect(promise).rejects.toThrow(new NaturalPersonAlreadyExistsError())
     })
@@ -47,7 +44,7 @@ describe('DbAddNaturalPerson', () => {
       const { sut, checkNaturalPersonByCPFRepositorySpy } = makeSut()
       jest.spyOn(checkNaturalPersonByCPFRepositorySpy, 'check').mockRejectedValueOnce(new Error())
 
-      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+      const promise = sut.add(mockAddNaturalPersonInput())
 
       await expect(promise).rejects.toThrow()
     })
@@ -56,7 +53,7 @@ describe('DbAddNaturalPerson', () => {
   describe('AddNaturalPersonRepository', () => {
     test('Should call AddNaturalPersonRepository with correct values', async() => {
       const { sut, addNaturalPersonRepositorySpy } = makeSut()
-      const addNaturalPersonRepositoryInput = mockAddNaturalPersonRepositoryInput()
+      const addNaturalPersonRepositoryInput = mockAddNaturalPersonInput()
 
       await sut.add(addNaturalPersonRepositoryInput)
 
@@ -67,7 +64,7 @@ describe('DbAddNaturalPerson', () => {
       const { sut, addNaturalPersonRepositorySpy } = makeSut()
       jest.spyOn(addNaturalPersonRepositorySpy, 'add').mockRejectedValueOnce(new Error())
 
-      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+      const promise = sut.add(mockAddNaturalPersonInput())
 
       await expect(promise).rejects.toThrow()
     })
@@ -75,7 +72,7 @@ describe('DbAddNaturalPerson', () => {
     test('Should not throw on success', async() => {
       const { sut } = makeSut()
 
-      const promise = sut.add(mockAddNaturalPersonRepositoryInput())
+      const promise = sut.add(mockAddNaturalPersonInput())
 
       await expect(promise).resolves.not.toThrow()
     })

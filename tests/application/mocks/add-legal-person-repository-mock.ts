@@ -1,17 +1,18 @@
 import { faker } from '@faker-js/faker'
 
-import { type AddNaturalPerson } from '@/domain/usecases'
+import { type AddLegalPersonRepository } from '@/application/protocols'
 
-export class AddNaturalPersonSpy implements AddNaturalPerson {
-  public input: AddNaturalPerson.Input
+export class AddLegalPersonRepositorySpy implements AddLegalPersonRepository {
+  public input: AddLegalPersonRepository.Input
 
-  public async add(input: AddNaturalPerson.Input): Promise<void> {
+  public async add(input: AddLegalPersonRepository.Input): Promise<void> {
     this.input = input
   }
 }
 
-export const mockAddNaturalPersonInput = (): AddNaturalPerson.Input => ({
-  cpf: faker.string.numeric(11),
+export const mockAddLegalPersonRepositoryInput = (): AddLegalPersonRepository.Input => ({
+  cnpj: faker.string.numeric(14),
+  responsibleCpf: faker.string.numeric(11),
   name: faker.person.fullName(),
   cellPhone: faker.helpers.fromRegExp(/([0-9]{2}) [0-9]{5}-[0-9]{4}/),
   phone: faker.helpers.fromRegExp(/([0-9]{2}) [0-9]{4}-[0-9]{4}/),
