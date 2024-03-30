@@ -1,9 +1,7 @@
-import { MySQLHelper } from '@/infra/db/mysql/helpers'
+import { MySQLRepository } from '@/infra/db/mysql/common'
 import { type AddNaturalPersonRepository } from '@/application/protocols'
 
-export class AddNaturalPersonMySQLRepository implements AddNaturalPersonRepository {
-  public readonly mySQLHelper: MySQLHelper = MySQLHelper.getInstance()
-
+export class AddNaturalPersonMySQLRepository extends MySQLRepository implements AddNaturalPersonRepository {
   public async add(input: AddNaturalPersonRepository.Input): Promise<void> {
     const connection = this.mySQLHelper.getConnection()
     await connection.execute(

@@ -1,9 +1,7 @@
-import { MySQLHelper } from '@/infra/db/mysql/helpers'
+import { MySQLRepository } from '@/infra/db/mysql/common'
 import { type CheckLegalPersonByCNPJRepository } from '@/application/protocols'
 
-export class CheckLegalPersonByCNPJMySQLRepository implements CheckLegalPersonByCNPJRepository {
-  public readonly mySQLHelper: MySQLHelper = MySQLHelper.getInstance()
-
+export class CheckLegalPersonByCNPJMySQLRepository extends MySQLRepository implements CheckLegalPersonByCNPJRepository {
   public async check(cnpj: string): Promise<boolean> {
     const connection = this.mySQLHelper.getConnection()
     const [result] = await connection.execute(
