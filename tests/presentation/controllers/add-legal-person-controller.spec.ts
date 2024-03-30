@@ -99,5 +99,13 @@ describe('AddLegalPersonController', () => {
 
       expect(httpResponse).toEqual(HttpHelper.serverError(new Error()))
     })
+
+    test('Should return ok on success', async() => {
+      const { sut } = makeSut()
+
+      const httpResponse = await sut.handle(mockRequest())
+
+      expect(httpResponse).toEqual(HttpHelper.ok({ message: 'Legal person successfully registered' }))
+    })
   })
 })
