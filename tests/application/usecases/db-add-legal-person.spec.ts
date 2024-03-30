@@ -1,21 +1,25 @@
-import { DbAddLegalPerson } from '@/application/usecases'
+import { CheckLegalPersonByCNPJRepositorySpy } from '@/tests/application/mocks'
 import { mockAddLegalPersonInput } from '@/tests/domain/mocks'
-import { type CheckLegalPersonByCNPJRepository } from '@/application/protocols'
+import { DbAddLegalPerson } from '@/application/usecases'
+
+interface Sut {
+  sut: DbAddLegalPerson
+  checkLegalPersonByCNPJRepositorySpy: CheckLegalPersonByCNPJRepositorySpy
+}
+
+const makeSut = (): Sut => {
+  const checkLegalPersonByCNPJRepositorySpy = new CheckLegalPersonByCNPJRepositorySpy()
+  const sut = new DbAddLegalPerson(checkLegalPersonByCNPJRepositorySpy)
+  return {
+    sut,
+    checkLegalPersonByCNPJRepositorySpy
+  }
+}
 
 describe('DbAddLegalPerson', () => {
   describe('CheckLegalPersonByCNPJRepository', () => {
     test('Should call CheckLegalPersonByCNPJRepository with correct cnpj', async() => {
-      class CheckLegalPersonByCNPJRepositorySpy implements CheckLegalPersonByCNPJRepository {
-        public cnpj: string
-        public output: boolean = false
-
-        public async check(cnpj: string): Promise<boolean> {
-          this.cnpj = cnpj
-          return this.output
-        }
-      }
-      const checkLegalPersonByCNPJRepositorySpy = new CheckLegalPersonByCNPJRepositorySpy()
-      const sut = new DbAddLegalPerson(checkLegalPersonByCNPJRepositorySpy)
+      const { sut, checkLegalPersonByCNPJRepositorySpy } = makeSut()
       const addLegalPersonInput = mockAddLegalPersonInput()
 
       await sut.add(addLegalPersonInput)
