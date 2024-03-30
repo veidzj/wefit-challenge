@@ -1,6 +1,7 @@
 import { CheckLegalPersonByCNPJRepositorySpy } from '@/tests/application/mocks'
 import { mockAddLegalPersonInput } from '@/tests/domain/mocks'
 import { DbAddLegalPerson } from '@/application/usecases'
+import { LegalPersonAlreadyExistsError } from '@/domain/errors'
 
 interface Sut {
   sut: DbAddLegalPerson
@@ -25,6 +26,15 @@ describe('DbAddLegalPerson', () => {
       await sut.add(addLegalPersonInput)
 
       expect(checkLegalPersonByCNPJRepositorySpy.cnpj).toBe(addLegalPersonInput.cnpj)
+    })
+
+    test('Should throw LegalPersonAlreadyExistsError if CheckLegalPersonByCNPJRepository returns true', async() => {
+      const { sut, checkLegalPersonByCNPJRepositorySpy } = makeSut()
+      checkLegalPersonByCNPJRepositorySpy.output = true
+
+      const promise = sut.add(mockAddLegalPersonInput())
+
+      await expect(promise).rejects.toThrow(new LegalPersonAlreadyExistsError())
     })
   })
 })
