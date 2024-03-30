@@ -14,7 +14,7 @@ export class AddLegalPersonController implements Controller {
     try {
       this.validation.validate(request)
       await this.addLegalPerson.add(request)
-      return HttpHelper.ok({})
+      return HttpHelper.ok({ message: 'Legal person successfully registered' })
     } catch (error) {
       if (error instanceof ValidationError) {
         return HttpHelper.badRequest(error)
