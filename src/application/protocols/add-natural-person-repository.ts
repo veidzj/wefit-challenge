@@ -1,5 +1,3 @@
-import { type Address } from '@/domain/models'
-
 export interface AddNaturalPersonRepository {
   add: (input: AddNaturalPersonRepository.Input) => Promise<void>
 }
@@ -11,6 +9,12 @@ export namespace AddNaturalPersonRepository {
     cellPhone: string
     phone: string
     email: string
-    address: Address
+    cep: string
+    street: string
+    number: number
+    complement: string
+    city: string
+    neighborhood: string
+    state: string
   }
 }

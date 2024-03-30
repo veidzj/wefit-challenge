@@ -8,7 +8,7 @@ export class AddNaturalPersonMySQLRepository implements AddNaturalPersonReposito
     const connection = this.mySQLHelper.getConnection()
     await connection.execute(
       'INSERT INTO natural_person (cpf, name, cellPhone, phone, email, cep, street, number, complement, city, neighborhood, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [input.cpf, input.name, input.cellPhone, input.phone, input.email, input.address.cep, input.address.street, input.address.number, input.address.complement, input.address.city, input.address.neighborhood, input.address.state]
+      [input.cpf, input.name, input.cellPhone, input.phone, input.email, input.cep, input.street, input.number, input.complement, input.city, input.neighborhood, input.state]
     )
   }
 }

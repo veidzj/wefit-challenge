@@ -30,7 +30,7 @@ describe('CheckNaturalPersonByCPFMySQLRepository', () => {
     const addNaturalPersonRepositoryInput = mockAddNaturalPersonRepositoryInput()
     await connection.execute(
       'INSERT INTO natural_person (cpf, name, cellPhone, phone, email, cep, street, number, complement, city, neighborhood, state) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)',
-      [addNaturalPersonRepositoryInput.cpf, addNaturalPersonRepositoryInput.name, addNaturalPersonRepositoryInput.cellPhone, addNaturalPersonRepositoryInput.phone, addNaturalPersonRepositoryInput.email, addNaturalPersonRepositoryInput.address.cep, addNaturalPersonRepositoryInput.address.street, addNaturalPersonRepositoryInput.address.number, addNaturalPersonRepositoryInput.address.complement, addNaturalPersonRepositoryInput.address.city, addNaturalPersonRepositoryInput.address.neighborhood, addNaturalPersonRepositoryInput.address.state]
+      [addNaturalPersonRepositoryInput.cpf, addNaturalPersonRepositoryInput.name, addNaturalPersonRepositoryInput.cellPhone, addNaturalPersonRepositoryInput.phone, addNaturalPersonRepositoryInput.email, addNaturalPersonRepositoryInput.cep, addNaturalPersonRepositoryInput.street, addNaturalPersonRepositoryInput.number, addNaturalPersonRepositoryInput.complement, addNaturalPersonRepositoryInput.city, addNaturalPersonRepositoryInput.neighborhood, addNaturalPersonRepositoryInput.state]
     )
     const sut = new CheckNaturalPersonByCPFMySQLRepository()
 
