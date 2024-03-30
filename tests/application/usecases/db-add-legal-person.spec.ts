@@ -1,4 +1,4 @@
-import { CheckLegalPersonByCNPJRepositorySpy } from '@/tests/application/mocks'
+import { CheckLegalPersonByCNPJRepositorySpy, AddLegalPersonRepositorySpy } from '@/tests/application/mocks'
 import { mockAddLegalPersonInput } from '@/tests/domain/mocks'
 import { DbAddLegalPerson } from '@/application/usecases'
 import { LegalPersonAlreadyExistsError } from '@/domain/errors'
@@ -6,14 +6,17 @@ import { LegalPersonAlreadyExistsError } from '@/domain/errors'
 interface Sut {
   sut: DbAddLegalPerson
   checkLegalPersonByCNPJRepositorySpy: CheckLegalPersonByCNPJRepositorySpy
+  addLegalPersonRepositorySpy: AddLegalPersonRepositorySpy
 }
 
 const makeSut = (): Sut => {
   const checkLegalPersonByCNPJRepositorySpy = new CheckLegalPersonByCNPJRepositorySpy()
-  const sut = new DbAddLegalPerson(checkLegalPersonByCNPJRepositorySpy)
+  const addLegalPersonRepositorySpy = new AddLegalPersonRepositorySpy()
+  const sut = new DbAddLegalPerson(checkLegalPersonByCNPJRepositorySpy, addLegalPersonRepositorySpy)
   return {
     sut,
-    checkLegalPersonByCNPJRepositorySpy
+    checkLegalPersonByCNPJRepositorySpy,
+    addLegalPersonRepositorySpy
   }
 }
 
@@ -44,6 +47,17 @@ describe('DbAddLegalPerson', () => {
       const promise = sut.add(mockAddLegalPersonInput())
 
       await expect(promise).rejects.toThrow()
+    })
+  })
+
+  describe('AddLegalPersonRepository', () => {
+    test('Should call AddLegalPersonRepository with correct values', async() => {
+      const { sut, addLegalPersonRepositorySpy } = makeSut()
+      const addLegalPersonInput = mockAddLegalPersonInput()
+
+      await sut.add(addLegalPersonInput)
+
+      expect(addLegalPersonRepositorySpy.input).toEqual(addLegalPersonInput)
     })
   })
 })
