@@ -15,6 +15,7 @@ services:
     volumes:
       - ./data/:/var/lib/mysql
       - ./scripts/setup-db.sql:/docker-entrypoint-initdb.d/1.sql
+      - ./scripts/setup-test-db.sql:/docker-entrypoint-initdb.d/2.sql
   api:
     container_name: wefit-challenge
     build:
