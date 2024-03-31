@@ -1,0 +1,184 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "WeFit Challenge"
+  },
+  "basePath": "/api/v1",
+  "paths": {
+    "/profile/natural-person": {
+      "post": {
+        "tags": ["Profile"],
+        "summary": "Register a natural person",
+        "description": "Register a profile for a natural person.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Natural person data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cpf": {
+                  "type": "string",
+                  "example": "123.456.789-01"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Joe Doe"
+                },
+                "cellPhone": {
+                  "type": "string",
+                  "example": "(11) 91234-5678"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "(11) 1234-5678"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "joedoe@mail.com"
+                },
+                "emailConfirmation": {
+                  "type": "string",
+                  "example": "joedoe@mail.com"
+                },
+                "cep": {
+                  "type": "string",
+                  "example": "123456-789"
+                },
+                "street": {
+                  "type": "string",
+                  "example": "Street Joe Doe"
+                },
+                "number": {
+                  "type": "number",
+                  "example": 42
+                },
+                "complement": {
+                  "type": "string",
+                  "example": "On the park side"
+                },
+                "neighborhood": {
+                  "type": "string",
+                  "example": "Joes"
+                },
+                "State": {
+                  "type": "string",
+                  "example": "Does"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Natural person profile successfully registered"
+          },
+          "400": {
+            "description": "Error in data sent"
+          },
+          "409": {
+            "description": "Natural person already registered"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    },
+    "/profile/legal-person": {
+      "post": {
+        "tags": ["Profile"],
+        "summary": "Register a legal person",
+        "description": "Register a profile for a legal person.",
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "description": "Natural person data",
+            "required": true,
+            "schema": {
+              "type": "object",
+              "properties": {
+                "cnpj": {
+                  "type": "string",
+                  "example": "12.345.678/0000-10"
+                },
+                "responsibleCpf": {
+                  "type": "string",
+                  "example": "123.456.789-01"
+                },
+                "name": {
+                  "type": "string",
+                  "example": "Joe Doe"
+                },
+                "cellPhone": {
+                  "type": "string",
+                  "example": "(11) 91234-5678"
+                },
+                "phone": {
+                  "type": "string",
+                  "example": "(11) 1234-5678"
+                },
+                "email": {
+                  "type": "string",
+                  "example": "joedoe@mail.com"
+                },
+                "emailConfirmation": {
+                  "type": "string",
+                  "example": "joedoe@mail.com"
+                },
+                "cep": {
+                  "type": "string",
+                  "example": "123456-789"
+                },
+                "street": {
+                  "type": "string",
+                  "example": "Street Joe Doe"
+                },
+                "number": {
+                  "type": "number",
+                  "example": 42
+                },
+                "complement": {
+                  "type": "string",
+                  "example": "On the park side"
+                },
+                "neighborhood": {
+                  "type": "string",
+                  "example": "Joes"
+                },
+                "State": {
+                  "type": "string",
+                  "example": "Does"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Legal person profile successfully registered"
+          },
+          "400": {
+            "description": "Error in data sent"
+          },
+          "409": {
+            "description": "Legal person already registered"
+          },
+          "500": {
+            "description": "Internal server error"
+          }
+        }
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Profile",
+      "description": "Operations related to profile"
+    }
+  ]
+}

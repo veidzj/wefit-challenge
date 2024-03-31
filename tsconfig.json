@@ -9,6 +9,7 @@
     "strictNullChecks": true,
     "skipLibCheck": true,
     "sourceMap": true,
+    "resolveJsonModule": true,
     "paths": {
       "@/tests/*": ["../tests/*"],
       "@/*": ["*"]
