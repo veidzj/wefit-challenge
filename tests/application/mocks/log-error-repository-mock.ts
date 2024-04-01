@@ -2,10 +2,8 @@ import { type LogErrorRepository } from '@/application/protocols'
 
 export class LogErrorRepositorySpy implements LogErrorRepository {
   public stack: string
-  public errorId: string
 
-  public async log(stack: string): Promise<string> {
+  public async log(stack: string): Promise<void> {
     this.stack = stack
-    return this.errorId
   }
 }
