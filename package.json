@@ -26,7 +26,8 @@
     "mysql2": "^3.9.3",
     "swagger-ui-express": "^5.0.0",
     "validation-br": "^1.4.5",
-    "validator": "^13.11.0"
+    "validator": "^13.11.0",
+    "winston": "^3.13.0"
   },
   "devDependencies": {
     "@faker-js/faker": "^8.4.1",
